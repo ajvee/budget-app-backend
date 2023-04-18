@@ -1,24 +1,21 @@
 const express = require("express");
 const app = express();
-const transactions = require("./models/Transactions");
+const transactionsController = require("./controllers/transactionsController")
 
 app.use(express.json())
 
-// Get all transactions
-app.get('/transactions', (req, res) => {
-    res.json(transactions);
-  });
+app.get('/transactions', transactionsController.getAllTransactions);
 
 // Get a single transaction by ID
-app.get('/transactions/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    const transaction = transactions.find(t => t.id === id);
-    if (transaction) {
-      res.json(transaction);
-    } else {
-      res.sendStatus(404);
-    }
-  });
+app.get('/transactions/:id', transactionsController.getTransactionById);
 
+// Create a new transaction
+app.post('/transactions', transactionsController.createTransaction);
+
+// Update a transaction by ID
+app.put('/transactions/:id', transactionsController.updateTransactionById);
+
+// Delete a transaction by ID
+app.delete('/transactions/:id', transactionsController.deleteTransactionById);
 
 module.exports = app;
