@@ -4,6 +4,12 @@ const transactionsController = require("./controllers/transactionsController")
 
 app.use(express.json())
 
+// Default endpoint
+app.get('/', (req, res) => {
+    res.send('Welcome to the transactions API!');
+  });
+  
+
 app.get('/transactions', transactionsController.getAllTransactions);
 
 // Get a single transaction by ID
